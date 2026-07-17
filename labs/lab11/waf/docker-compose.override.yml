@@ -1,0 +1,21 @@
+services:
+  waf:
+    image: owasp/modsecurity-crs:nginx-alpine
+    restart: unless-stopped
+    depends_on:
+      - nginx
+    ports:
+      - "8443:8443"
+    environment:
+      - BACKEND=https://nginx:443
+      - HTTPS=on
+      - SSL_CERTIFICATE=/etc/nginx/conf/server.crt
+      - SSL_CERTIFICATE_KEY=/etc/nginx/conf/server.key
+      - MODSEC_RULE_ENGINE=On
+      - PARANOIA=1
+      - ANOMALY_INBOUND=5
+      - ANOMALY_OUTBOUND=4
+    volumes:
+      - ./reverse-proxy/certs/localhost.crt:/etc/nginx/conf/server.crt:ro
+      - ./reverse-proxy/certs/localhost.key:/etc/nginx/conf/server.key:ro
+      - ./logs:/var/log/modsec:rw
