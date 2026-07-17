@@ -1,0 +1,2 @@
+Connection closed after 10s
+# Nginx closed the connection after 10s (client_header_timeout 10s)
