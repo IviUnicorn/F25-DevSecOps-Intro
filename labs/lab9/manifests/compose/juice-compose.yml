@@ -1,0 +1,9 @@
+services:
+  juice-shop:
+    image: bkimminich/juice-shop@sha256:abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890
+    user: "1000:1000"
+    read_only: true
+    cap_drop:
+      - ALL
+    ports:
+      - "3000:3000"
