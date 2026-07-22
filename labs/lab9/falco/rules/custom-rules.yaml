@@ -1,0 +1,41 @@
+# Custom Falco rule — Lab 9
+# Detects writes to /tmp inside any container (not host)
+
+- rule: "Write to /tmp by container"
+  desc: "Detect any file write to /tmp inside a container"
+  condition: >
+    open_write
+    and container.id != host
+    and fd.name startswith /tmp/
+  output: >
+    "Write to /tmp detected (container=%container.name user=%user.name
+     file=%fd.name cmdline=%proc.cmdline)"
+  priority: WARNING
+  tags: [container, drift]
+
+# Bonus: Detect cryptominer network/process patterns
+# Combines 2 indicators: (1) process name matching known miner binaries,
+# (2) network tools making connections to mining-pool ports.
+# Uses spawned_process (execve-based) since connect tracepoints are not
+# available on all kernels (e.g., Linux 7.x with modern eBPF).
+
+- rule: "Possible Cryptominer Activity"
+  desc: "Detect known miner processes or network tools connecting to mining-pool ports"
+  condition: >
+    spawned_process
+    and container.id != host
+    and (proc.name in (xmrig, ethminer, cgminer, t-rex, claymore)
+         or (proc.name in (nc, ncat, netcat, curl, wget)
+             and (proc.cmdline contains "3333"
+                  or proc.cmdline contains "4444"
+                  or proc.cmdline contains "5555"
+                  or proc.cmdline contains "7777"
+                  or proc.cmdline contains "14444"
+                  or proc.cmdline contains "19999"
+                  or proc.cmdline contains "45700")))
+  output: >
+    "Possible cryptominer detected (container=%container.name
+     proc=%proc.name cmdline=%proc.cmdline
+     user=%user.name)"
+  priority: CRITICAL
+  tags: [container, mitre_execution, mitre_command_and_control]
