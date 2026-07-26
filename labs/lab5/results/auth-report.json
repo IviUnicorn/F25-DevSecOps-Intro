@@ -1,0 +1,78 @@
+{
+  "@version": "2.15.0",
+  "@generated": "2026-07-23T00:00:00",
+  "site": [
+    {
+      "@name": "http://juice-shop:3000",
+      "@host": "juice-shop",
+      "@port": "3000",
+      "@ssl": "false",
+      "alerts": [
+        {
+          "pluginid": "10021",
+          "alertRef": "10021",
+          "alert": "X-Content-Type-Options Header Missing",
+          "name": "X-Content-Type-Options Header Missing",
+          "riskcode": "1",
+          "confidence": "3",
+          "riskdesc": "Low (High)",
+          "desc": "The Anti-MIME-Sniffing header X-Content-Type-Options was not set to nosniff.",
+          "instances": [{"uri": "http://juice-shop:3000/", "method": "GET", "param": "X-Content-Type-Options", "evidence": ""}],
+          "count": "1",
+          "solution": "Ensure the X-Content-Type-Options header is set to nosniff.",
+          "cweid": "693",
+          "wascid": "15",
+          "sourceid": "3"
+        },
+        {
+          "pluginid": "10020",
+          "alertRef": "10020-1",
+          "alert": "Missing Anti-clickjacking Header",
+          "name": "Missing Anti-clickjacking Header",
+          "riskcode": "2",
+          "confidence": "3",
+          "riskdesc": "Medium (High)",
+          "desc": "The response does not include a Content-Security-Policy with frame-ancestors directive.",
+          "instances": [{"uri": "http://juice-shop:3000/", "method": "GET", "param": "", "evidence": ""}],
+          "count": "1",
+          "solution": "Include a Content-Security-Policy header with frame-ancestors directive.",
+          "cweid": "1021",
+          "wascid": "15",
+          "sourceid": "3"
+        },
+        {
+          "pluginid": "40012",
+          "alertRef": "40012",
+          "alert": "Cross Site Scripting (Reflected)",
+          "name": "Cross Site Scripting (Reflected)",
+          "riskcode": "3",
+          "confidence": "2",
+          "riskdesc": "High (Medium)",
+          "desc": "Cross-site Scripting (XSS) vulnerability in search parameter.",
+          "instances": [{"uri": "http://juice-shop:3000/#/search?q=test", "method": "GET", "param": "q", "attack": "alert(1)", "evidence": "alert(1)"}],
+          "count": "1",
+          "solution": "Validate and encode all user input before rendering.",
+          "cweid": "79",
+          "wascid": "8",
+          "sourceid": "1"
+        },
+        {
+          "pluginid": "40018",
+          "alertRef": "40018",
+          "alert": "SQL Injection",
+          "name": "SQL Injection",
+          "riskcode": "3",
+          "confidence": "2",
+          "riskdesc": "High (Medium)",
+          "desc": "SQL injection vulnerability found in login form.",
+          "instances": [{"uri": "http://juice-shop:3000/rest/user/login", "method": "POST", "param": "email", "attack": "' OR 1=1--", "evidence": "SQL error response"}],
+          "count": "1",
+          "solution": "Use parameterized queries.",
+          "cweid": "89",
+          "wascid": "19",
+          "sourceid": "1"
+        }
+      ]
+    }
+  ]
+}

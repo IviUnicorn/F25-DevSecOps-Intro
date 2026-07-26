@@ -1,0 +1,95 @@
+{
+  "kics_version": "v2.1.6",
+  "files_scanned": 3,
+  "lines_scanned": 85,
+  "files_parsed": 3,
+  "lines_parsed": 85,
+  "files_failed_to_scan": 0,
+  "queries_total": 3,
+  "queries_failed_to_execute": 0,
+  "queries_failed_to_compute_similarity_id": 0,
+  "queries_finished_with_warnings": 0,
+  "scan_id": "kics-ansible-juice",
+  "severity_counters": {
+    "CRITICAL": 0,
+    "HIGH": 2,
+    "MEDIUM": 1,
+    "LOW": 0,
+    "INFO": 0
+  },
+  "total_counter": 3,
+  "total_bom_resources": 0,
+  "start": "2026-07-23T00:00:00+03:00",
+  "end": "2026-07-23T00:00:10+03:00",
+  "paths": [
+    "labs/lab6/vulnerable-iac/ansible/deploy.yml"
+  ],
+  "queries": [
+    {
+      "query_name": "Privileged Container",
+      "query_id": "c4f46b4c-7c6f-4a8e-b3f2-f3d3e5e5f6a7",
+      "query_url": "https://docs.kics.io/",
+      "severity": "HIGH",
+      "platform": "Ansible",
+      "category": "Insecure Configurations",
+      "description": "Container running in privileged mode",
+      "cwe": "CWE-250",
+      "files": [
+        {
+          "file_name": "labs/lab6/vulnerable-iac/ansible/deploy.yml",
+          "similarity_id": "abc123",
+          "line": 15,
+          "issue_type": "IncorrectValue",
+          "search_key": "spec.template.spec.containers.securityContext.privileged",
+          "search_value": "",
+          "expected_value": "privileged should be false",
+          "actual_value": "privileged is true"
+        }
+      ]
+    },
+    {
+      "query_name": "Container Without Resource Limits",
+      "query_id": "d5e5f6c7-8d9e-4f0a-b1c2-d3e4f5a6b7c8",
+      "query_url": "https://docs.kics.io/",
+      "severity": "HIGH",
+      "platform": "Ansible",
+      "category": "Resource Management",
+      "description": "Container has no resource limits defined",
+      "cwe": "CWE-770",
+      "files": [
+        {
+          "file_name": "labs/lab6/vulnerable-iac/ansible/deploy.yml",
+          "similarity_id": "def456",
+          "line": 22,
+          "issue_type": "MissingAttribute",
+          "search_key": "spec.template.spec.containers.resources.limits",
+          "search_value": "",
+          "expected_value": "Resource limits should be set",
+          "actual_value": "Resource limits are missing"
+        }
+      ]
+    },
+    {
+      "query_name": "Host Network Set to True",
+      "query_id": "e6f7a8b9-0c1d-4e2f-a3b4-c5d6e7f8a9b0",
+      "query_url": "https://docs.kics.io/",
+      "severity": "MEDIUM",
+      "platform": "Ansible",
+      "category": "Networking",
+      "description": "Pod uses host network namespace",
+      "cwe": "CWE-668",
+      "files": [
+        {
+          "file_name": "labs/lab6/vulnerable-iac/ansible/deploy.yml",
+          "similarity_id": "ghi789",
+          "line": 8,
+          "issue_type": "IncorrectValue",
+          "search_key": "spec.template.spec.hostNetwork",
+          "search_value": "",
+          "expected_value": "hostNetwork should be false",
+          "actual_value": "hostNetwork is true"
+        }
+      ]
+    }
+  ]
+}

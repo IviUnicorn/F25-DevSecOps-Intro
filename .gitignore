@@ -1,0 +1,8 @@
+# Lab 4 — regeneratable scan outputs (do not commit)
+labs/lab4/grype-from-sbom.json
+labs/lab4/grype-from-sbom.txt
+labs/lab4/trivy.json
+labs/lab4/trivy.txt
+
+# Lab 10 — DefectDojo source clone (do not commit upstream code)
+labs/lab10/work/dd/
