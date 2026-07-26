@@ -1,0 +1,5 @@
+# Lab 4 — scan outputs are regeneratable; do not commit
+labs/lab4/grype-from-sbom.json
+labs/lab4/grype-from-sbom.txt
+labs/lab4/trivy.json
+labs/lab4/trivy.txt
