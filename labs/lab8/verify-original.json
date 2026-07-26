@@ -1,0 +1,16 @@
+{
+  "critical": {
+    "identity": {
+      "docker-reference": "docker.io/bkimminich/juice-shop"
+    },
+    "type": "cosign container image signature"
+  },
+  "optional": {
+    "Bundle": {
+      "SignedEntryTimestamp": "MEUCIQD..."
+    },
+    "Issuer": "https://token.actions.githubusercontent.com",
+    "Subject": "https://github.com/IviUnicorn/F25-DevSecOps-Intro/.github/workflows/ci.yml@refs/heads/main"
+  },
+  "verified": true
+}

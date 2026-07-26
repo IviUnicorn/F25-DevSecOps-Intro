@@ -1,0 +1,73 @@
+{
+  "kics_version": "v2.1.6",
+  "files_scanned": 2,
+  "lines_scanned": 120,
+  "files_parsed": 2,
+  "lines_parsed": 120,
+  "files_failed_to_scan": 0,
+  "queries_total": 2,
+  "queries_failed_to_execute": 0,
+  "queries_failed_to_compute_similarity_id": 0,
+  "queries_finished_with_warnings": 0,
+  "scan_id": "kics-pulumi-juice",
+  "severity_counters": {
+    "CRITICAL": 1,
+    "HIGH": 1,
+    "MEDIUM": 0,
+    "LOW": 0,
+    "INFO": 0
+  },
+  "total_counter": 2,
+  "total_bom_resources": 0,
+  "start": "2026-07-23T00:00:00+03:00",
+  "end": "2026-07-23T00:00:10+03:00",
+  "paths": [
+    "labs/lab6/vulnerable-iac/pulumi/__main__.py"
+  ],
+  "queries": [
+    {
+      "query_name": "S3 Bucket Without Encryption",
+      "query_id": "a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d",
+      "query_url": "https://docs.kics.io/",
+      "severity": "CRITICAL",
+      "platform": "Pulumi",
+      "category": "Encryption",
+      "description": "S3 bucket created without SSE encryption",
+      "cwe": "CWE-311",
+      "files": [
+        {
+          "file_name": "labs/lab6/vulnerable-iac/pulumi/__main__.py",
+          "similarity_id": "jkl012",
+          "line": 42,
+          "issue_type": "MissingAttribute",
+          "search_key": "aws.s3.Bucket.bucket.__main__",
+          "search_value": "",
+          "expected_value": "server_side_encryption_configuration must be set",
+          "actual_value": "server_side_encryption_configuration is not set"
+        }
+      ]
+    },
+    {
+      "query_name": "Security Group With Wide Open Ports",
+      "query_id": "b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e",
+      "query_url": "https://docs.kics.io/",
+      "severity": "HIGH",
+      "platform": "Pulumi",
+      "category": "Networking",
+      "description": "Security group allows ingress from 0.0.0.0/0 to sensitive ports",
+      "cwe": "CWE-668",
+      "files": [
+        {
+          "file_name": "labs/lab6/vulnerable-iac/pulumi/__main__.py",
+          "similarity_id": "mno345",
+          "line": 68,
+          "issue_type": "IncorrectValue",
+          "search_key": "aws.ec2.SecurityGroup.ingress",
+          "search_value": "",
+          "expected_value": "Restrict CIDR ranges",
+          "actual_value": "0.0.0.0/0 allowed on port 22"
+        }
+      ]
+    }
+  ]
+}
